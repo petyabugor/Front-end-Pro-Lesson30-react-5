@@ -15,13 +15,13 @@ const App = () => {
     localStorage.getItem("isLoggedIn") === "true"
   );
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");
     } else {
       navigate("/");
     }
-  }, []); */
+  }, []);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/photos")
@@ -68,15 +68,6 @@ const App = () => {
       ></Header>
       <Routes>
         <Route
-          path="*"
-          element={
-            <Navigate
-              to="/PageNotFound"
-              replace
-            />
-          }
-        />
-        <Route
           path="/login"
           element={<Login setISLoggedIn={setISLoggedIn} />}
         />
@@ -90,6 +81,15 @@ const App = () => {
               onAdd={addToOrder}
               Skeleton={isLoaded}
             ></Main>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to="/PageNotFound"
+              replace
+            />
           }
         />
       </Routes>
