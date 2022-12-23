@@ -1,4 +1,5 @@
 import Product from './Product/Product'
+import ProductSkeleton  from './Product/ProductSkeleton'
 
 
-export {Product}
+export {Product,ProductSkeleton }

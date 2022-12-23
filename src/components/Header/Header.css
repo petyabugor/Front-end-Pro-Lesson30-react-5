@@ -1,7 +1,7 @@
 .header {
     padding: 5px;
     background: rgb(249,248,228);
-background: linear-gradient(90deg, rgba(249,248,228,1) 0%, rgb(201, 200, 198) 35%, rgba(249,236,227,1) 100%);
+    background: linear-gradient(90deg, rgba(249,248,228,1) 0%, rgb(201, 200, 198) 35%, rgba(249,236,227,1) 100%);
 }
 
 .header__container {
@@ -34,6 +34,8 @@ background: linear-gradient(90deg, rgba(249,248,228,1) 0%, rgb(201, 200, 198) 35
 .header__button {
     display: flex;
     gap: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -83,4 +85,29 @@ background: linear-gradient(90deg, rgba(249,248,228,1) 0%, rgb(201, 200, 198) 35
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;
+}
+
+.login-icon{
+    cursor: pointer;
+    color: black;
+    transition: color, transform 500ms ease;
+}
+
+.login-icon:hover,
+.login-icon.active{
+    color: #f78080;
+    transform: scale(1.5);
+}
+
+.logout-icon{
+    margin-top: 5px;
+    cursor: pointer;
+    color: black;
+    transition: color, transform 500ms ease;
+    font-size: 28px;
+}
+.logout-icon:hover,
+.logout-icon.active{
+    color: #f78080;
+    transform: scale(1.5);
 }

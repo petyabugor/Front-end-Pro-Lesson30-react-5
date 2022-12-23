@@ -1,45 +1,36 @@
-import { Header, Main, Footer } from "./components/index";
+import { Header, Footer, Main } from "./components/index";
+import Login from "./components/pages/Login/Login";
+import PageNotFound from "./components/pages/PageNotFound/PageNotFound";
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import CheckIdleTime from "./components/common/IdleTime/CheckIdleTime";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 
 const App = () => {
-  /* constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-      orders: [],
-    };
-
-    this.addToOrder = this.addToOrder.bind(this);
-    this.ascOrder = this.ascOrder.bind(this);
-    this.descOrder = this.descOrder.bind(this);
-    this.deleteOrder = this.deleteOrder.bind(this);
-  } */
-
-  const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [orders, setOrders] = useState([]);
 
+  const navigate = useNavigate();
+  const [isLoggedIn, setISLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
+
+  /* useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      navigate("/");
+    }
+  }, []); */
+
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/photos")
       .then((res) => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true), setItems(result);
-        },
-        (error) => {
-          setIsLoaded(true), error;
-        }
-      );
+      .then((result) => {
+        setItems(result);
+        setIsLoaded(true);
+      });
   }, []);
-
-  const deleteOrder = (id) => {
-    setOrders((prev) => prev.filter((el) => el.id !== id));
-  };
 
   const addToOrder = (item) => {
     let isInArray = false;
@@ -64,27 +55,47 @@ const App = () => {
       })
     );
   };
+  const deleteOrder = (id) => {
+    setOrders((prev) => prev.filter((el) => el.id !== id));
+  };
 
-  /* const { error, isLoaded, items } = this.state; */
-  if (error) {
-    return <div>Ошибка: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Загрузка...</div>;
-  } else {
-    return (
-      <div className="wrapper">
-        <Header order={orders} onDelete={deleteOrder}></Header>
-        <Main
-          sortAB={ascOrder}
-          sortBA={descOrder}
-          /* chooseCategory={this.chooseCategory} */
-          items={items}
-          onAdd={addToOrder}
-        ></Main>
-        <Footer></Footer>
-      </div>
-    );
-  }
+  return (
+    <div className="wrapper">
+      <Header
+        order={orders}
+        onDelete={deleteOrder}
+        isLoggedIn={isLoggedIn}
+      ></Header>
+      <Routes>
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to="/PageNotFound"
+              replace
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={<Login setISLoggedIn={setISLoggedIn} />}
+        />
+        <Route
+          path="/"
+          element={
+            <Main
+              sortAB={ascOrder}
+              sortBA={descOrder}
+              items={items}
+              onAdd={addToOrder}
+              Skeleton={isLoaded}
+            ></Main>
+          }
+        />
+      </Routes>
+      <Footer></Footer>
+    </div>
+  );
 };
 
 export default App;

@@ -1,8 +1,10 @@
 import React from 'react'
 import Order from '../common/Order/Order'
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart,FaUserAlt} from "react-icons/fa";
+import {IoLogOut} from  "react-icons/io5";
 import  './Header.css'
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const showOrders = (props) =>{
         let summa = 0
@@ -23,25 +25,32 @@ const showNothing = () =>{
 }
 
 const Header = (props) =>  {
+    
     let [cartOpen, setCartOpen]= useState(false)
   return (
     <header className="header">
         <div className="header__container _container">
             <div className="header__content">
                 <div className="header__logo">
-                    <a href="#" className="header__logo_link">
+                    
+                     <Link to="/" className="header__logo_link">
                         Trendshop
-                    </a>
+                    </Link>
                 </div>
                 <nav className="header__menu menu">
-                        <a href="#" className="menu__link">Головна</a>
-                        <a href="#" className="menu__link">Товари та послуги</a>
-                        <a href="#" className="menu__link">Про компанію</a>
-                        <a href="#" className="menu__link">Контакти</a>
-                        <a href="#" className="menu__link">Відгуки</a>
+                        <Link to="/" className="menu__link">Головна</Link>
+                        <Link to="#" className="menu__link">Товари та послуги</Link>
+                        <Link to="#" className="menu__link">Про компанію</Link>
+                        <Link to="#" className="menu__link">Контакти</Link>
+                        <Link to="#" className="menu__link">Відгуки</Link>
                 </nav>
             </div>
                 <div className="header__button">
+                {!props.isLoggedIn
+                ?<Link to="/login" > <FaUserAlt className='login-icon' />
+                </Link>
+                :<Link to="/login" > <IoLogOut  className='logout-icon' />
+                </Link>}
                     <FaShoppingCart onClick={() => setCartOpen(cartOpen = !cartOpen)} className={`shop-cart-button ${cartOpen &&'active'}`}/>
                     {cartOpen && (
                     <div className="shop-cart">
