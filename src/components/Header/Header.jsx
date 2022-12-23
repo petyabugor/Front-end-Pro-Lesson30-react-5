@@ -25,8 +25,8 @@ const showNothing = () =>{
 }
 
 const Header = (props) =>  {
-    
     let [cartOpen, setCartOpen]= useState(false)
+    
   return (
     <header className="header">
         <div className="header__container _container">
@@ -49,7 +49,7 @@ const Header = (props) =>  {
                 {!props.isLoggedIn
                 ?<Link to="/login" > <FaUserAlt className='login-icon' />
                 </Link>
-                :<Link to="/login" > <IoLogOut  className='logout-icon' />
+                :<Link to="/login"  > <IoLogOut  className='logout-icon' />
                 </Link>}
                     <FaShoppingCart onClick={() => setCartOpen(cartOpen = !cartOpen)} className={`shop-cart-button ${cartOpen &&'active'}`}/>
                     {cartOpen && (
